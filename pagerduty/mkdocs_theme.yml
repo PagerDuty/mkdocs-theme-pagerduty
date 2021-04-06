@@ -1,0 +1,8 @@
+# Config options for 'pagerduty' theme
+
+# Used for the title of the site (e.g. 'Incident Response', 'Security Training', etc)
+title:
+
+# Static pages.
+static_templates:
+  - 404.html

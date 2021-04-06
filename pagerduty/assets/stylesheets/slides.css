@@ -1,0 +1,605 @@
+/*
+Theme used on pages which are presenting slides from a talk with presenter notes. It will also need
+the usual pagerduty.css loaded beforehand as it overrides from that.
+*/
+
+/* Change layout to remove sidebar navigation, and use full width for slide content. */
+/* Move off-screen so we can still use for mobile navigation. */
+main nav {
+  position: absolute;
+  left: -300px;
+}
+
+main article {
+  padding-left: 0em;
+  overflow: visible; /* For permalinks */
+}
+
+/* Make sure things line up properly for various page sizes. */
+@media only screen and (max-width: 960px)
+{
+  main article {
+    padding-top: 1em;
+  }
+}
+
+@media only screen and (max-width: 540px)
+{
+  main article {
+    padding-top: 0em;
+  }
+}
+
+/* We want the slides to take up 50% width, with an extra 2% padding on the right.
+   Any line tagged with "slide_dim:" will need to be changed if those values are altered. */
+
+/* Slide text always appears on right hand side. */
+article > p {
+  width: 100%;
+  padding-left: 51%; /* slide_dim: Width of slide + padding. */
+}
+
+/* First one needs bumping down just a little bit more. */
+article h3 + p {
+  margin-top: 3.2em;
+}
+
+/* But not in search results. */
+#mkdocs-search-results article h3 + p {
+  margin-top: inherit;
+}
+
+/* Clear all floats between slides. */
+article hr {background-size: contain;
+  clear: both;
+  height: 0em;
+  visibility: hidden;
+}
+
+article hr + hr {
+  visibility: visible;
+  margin-top: 0em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+
+/* Display slide images by the side. */
+article p > label,
+article p > img,
+article p > em img {
+  display: block;
+  float: left;
+  z-index: 99;
+  width: 100%; /* slide_dim: Full width of the float, which is 50% of container. */
+  /*box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);*/ /* Keep it subtle. */
+  margin-left: -104%; /* slide_dim: 2*2% difference so we have some padding between slide and text. */
+  border-radius: 4px;
+
+  /* Avoid cutting off images when printing. */
+  page-break-inside: avoid;
+}
+
+/* Videos should take up full frame. */
+article iframe {
+  position: absolute;
+  top: -1em;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Hack to make image heights a 16:9 ratio.
+   This way, they don't load in as 0 height, and then push all the content once the image loads. */
+article p label {
+  position: relative;
+  height: 0;
+  padding-top: 56.25%; /* 16:9 */
+  z-index: 0; /* Don't show it above the hedaer. */
+  background: #f3f3f3;
+}
+
+article p label img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 4px;
+}
+
+/* Emphesized images take full width as normal. */
+article p em label {
+  width: 204%;
+  margin-left: -104%;
+  padding-top: 114.75%; /* 16:9 */
+  margin-bottom: 0.2em;
+  float: none;
+}
+
+article p em label img {
+  position: absolute;
+  left: 104%;
+}
+
+/* Image Captions */
+article p img + em,
+article p em + em,
+article p a + em ,
+article p label + em {
+  float: left;
+  position: relative;
+  width: 100%;
+  margin-right: 0em;
+  margin-top: 0em;
+  margin-left: -104%;
+  font-size: 0.8em;
+  padding: 0em 0.2em;
+  margin-top: 57%; /* Instead of padding. */
+  color: #222;
+  background: transparent;
+}
+
+/* Image References */
+article p img + em a,
+article p em + em a,
+article p a + em a,
+article p label + em a {
+  position: relative;
+  margin-left: 1.5em;
+  height: 1.4em;
+  margin-top: -.1em;
+  float: right;
+  font-style: normal;
+}
+
+article p img + em a:before,
+article p em + em a:before,
+article p a + em a:before,
+article p label + em  a:before {
+  font-family: 'Material Icons';
+  font-style: normal;
+  color: #2196f3;
+  content: "\e887";
+  position: absolute;
+  font-size: 1.1em;
+  left: -1.2em;
+  margin-top: -0.15em;
+
+}
+
+/* Emphesized image captions take full width as normal. */
+article p em + em {
+  width: 204%;
+  margin-left: -104%;
+  padding-top: .2em;
+  margin-top: 0%;
+}
+
+/* Slide titles. Only really used for anchors. */
+article h3 {
+  margin-bottom: -3.5em;
+  padding-bottom: 0em;
+  padding-top: 0em;
+  padding-left: .5em;
+  margin-top: 0.5em;
+  margin-left: 0em;
+  color: #fff;
+  width: 0px;
+  text-indent: -999px; /* Hide the text, since only for anchors anyway. */
+
+  scroll-margin-top: 3.5em;
+}
+
+/* But not in search results. */
+#mkdocs-search-results article h3 {
+  text-indent: 0px;
+  width: auto;
+}
+
+/* Keep the permalinks though. */
+article h3 a.headerlink {
+  text-indent: 0px;
+  color: #888 !important;
+  float: left;
+  margin-left: -1.3em;
+  top: .3em;
+  left: 0em;
+  width: 1em;
+}
+
+  @media only screen and (max-width: 1300px) {
+    article h3 a.headerlink {
+      margin-left: -.85em;
+    }
+  }
+
+  @media only screen and (max-width: 960px) {
+    article h3 a.headerlink {
+      margin-left: -.7em;
+    }
+  }
+
+  @media only screen and (max-width: 720px) {
+    article h3 a.headerlink {
+      margin-left: -.7em;
+      margin-top: -1em;
+    }
+  }
+/* Lists */
+article ul,
+article ol {
+  padding-left: 52%;
+}
+article blockquote ul,
+article blockquote ol {
+  padding-left: 1em;
+  margin-top: 0em;
+  margin-bottom: 1em;
+}
+
+article .admonition ul,
+article .admonition ol {
+  padding-left: 1em;
+}
+
+/* Offset anchor targets, since we need to account for the header bar. */
+/*article h3:target:before {
+  content: "";
+  display :block;
+  height: 75px;
+  margin: -75px 0 0;
+}*/
+
+/* If linked to an anchor, higlight the image. */
+article h3:target + p img {
+  box-shadow: 0px 0px 4px 4px rgba(37, 193, 81, 0.5);
+  transition: box-shadow ease-in-out 0.2s;
+}
+
+  @media print {
+    article h3:target + p img {
+      box-shadow: none;
+    }
+  }
+
+/* Admonitions don't need same margins. */
+@media only screen and (max-width: 720px) {
+  article .admonition {
+    margin-top: 1em;
+  }
+}
+
+/* Quotes should be half width. */
+article blockquote {
+  width: calc(49% - 3em);
+  margin-left: calc(51% + 3em);
+}
+
+/* Asides should also be half width. */
+article details {
+  width: calc(49% - 3em);
+  margin-left: calc(51% + 3em);
+}
+
+/* Unless we specifically want full width. */
+article details.full-width {
+  width: calc(100% - 3em);
+  margin-left: 3em;
+  margin-top: 1.6em;
+}
+
+/* Or we're printing... */
+@media print {
+  article blockquote,
+  article details  {
+    width: 95%;
+    margin-left: 3em;
+  }
+}
+
+/* If the first thing is an aside, bump it down a bit. */
+article h3 + p + details {
+  margin-top: 3.5em !important;
+}
+
+/* For smaller screens, show images full size. */
+@media print, only screen and (max-width: 720px) {
+  /* No side-by-side content. */
+  article > p,
+  article .wrapper > p {
+    padding-left: 0%;
+  }
+
+  /* Needs to bump down a little more when anchored. */
+  article h3 {
+    scroll-margin-top: 3.8em;
+  }
+
+  /* Reset any bump-down's we did. */
+  article h3 + p {
+    margin-top: 2em;
+  }
+  article h3 + p + details {
+    margin-top: 1em !important;
+  }
+
+  /* Don't float images, full width. */
+  article p img,
+  article p label,
+  article p em label {
+    float: none;
+    margin-left: 0%;
+    width: 100%;
+  }
+
+  /* Reset ratio for emphasized images. */
+  article p em label {
+    padding-top: 56.25%;
+  }
+
+  /* Reset emphasized images to normal. */
+  article p em img,
+  article p em label img {
+    min-width: 100%;
+    margin-left: 0px;
+    left: 0;
+  }
+
+  /* Reset image captions. */
+  article p img + em,
+  article p em + em,
+  article p a + em,
+  article p label + em {
+    float: none;
+    width: 100%;
+    margin-left: 0%;
+    padding-top: 0%;
+  }
+
+  article p img + em a,
+  article p em + em a,
+  article p a + em a,
+  article p label + em a {
+    margin-top: 0.2em;
+  }
+
+  /* Indent lists slightly. */
+  article ul,
+  article ol {
+    padding-left: 1em;
+  }
+}
+
+/* Hide all checkboxes, using it for a hacky CSS-only lightbox effect. */
+article input[type=checkbox] {
+	display: none;
+}
+
+article label {
+	display: block;
+}
+
+/* Lightbox animation. */
+@-webkit-keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Lightbox background. */
+article input[type=checkbox]:checked + label {
+  -webkit-perspective: 1000;
+  perspective: 1000;
+  position: fixed;
+  float: none;
+  left: 0;
+  top: 0;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  margin: 0px;
+  z-index: 50;
+  padding-top: 0px;
+  transition: background 0.2s ease-in-out;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* Image. Using vh/vw to center it no matter the screen dimensions. */
+article input[type=checkbox]:checked + label img {
+  width: auto;
+  height: auto;
+  left: initial;
+  top: initial;
+  position: initial;
+  max-width: 90vw;
+  max-height: 90vh;
+  margin: auto;
+  z-index: 50;
+  animation: zoomIn 0.2s 0s 1 normal forwards;
+}
+
+/* Don't animate if we're in slideshow mode. */
+article.slideshow input[type=checkbox]:checked + label img {
+  animation: none;
+}
+article.slideshow input[type=checkbox]:checked + label {
+  transition: none;
+}
+
+article em input[type=checkbox]:checked + label img {
+  min-width: 0%;
+}
+
+article input[type=checkbox]:checked + label:after,
+article input[type=checkbox]:checked + label img:after {
+  content: none;
+}
+
+/* For image lazy loading. */
+article label img {
+  opacity: 1;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -ms-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+
+article label.hidden img {
+  opacity: 0;
+  -webkit-transition: opacity 0s;
+  -moz-transition: opacity 0s;
+  -ms-transition: opacity 0s;
+  -o-transition: opacity 0s;
+  transition: opacity 0s;
+}
+
+/* Images loading via lazy loading, show a loading icon. */
+article label.hidden:after {
+  content: "\e88b"; /* Loading hourglass... */
+  font-family: 'Material Icons';
+  color: #888;
+  font-size: 1.5em;
+  font-style: normal;
+  text-align: center;
+  padding-top: 25%;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f3f3f3;
+}
+
+/* Remove any overlays for loaded images. */
+article label.loaded:after {
+  content: none;
+}
+
+/* Show all images when printing. */
+@media print {
+  article label.hidden img {
+    opacity: 1;
+  }
+}
+
+/* Images in the process of loading. */
+article label img {
+  width: 100%;
+  height: 100%;
+}
+
+/* Broken images, show a broken line icon. */
+article img:after {
+  content: "\e3ad"; /* Broken link */
+  font-family: 'Material Icons';
+  color: #888;
+  font-size: 1.5em;
+  font-style: normal;
+  text-align: center;
+  padding-top: 25%;
+  display: block;
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #f3f3f3;
+}
+
+/* Download links. */
+#downloads {
+  width: 100%;
+  display: block;
+  position: absolute;
+  z-index: 1;
+  padding: 0em;
+  margin-top: 1em;
+  padding-right: 1em;
+  text-align: right;
+}
+
+  @media only screen and (max-width: 720px) {
+    #downloads {
+      margin-top: 1em;
+    }
+  }
+
+  /* For smaller screens, show button differently. */
+  @media only screen and (max-width: 540px) {
+     #downloads {
+       position: relative;
+       margin: -.5em 0em -1.5em 0em;
+     }
+
+     .download-link a:last-child {
+       margin-right: -1em;
+     }
+  }
+
+.download-link {
+  display: inline-block;
+  margin: 1em 0em 1em 1em;
+}
+
+#download-link-pdf a,
+#download-link-keynote a {
+  display: inline-block;
+  padding: 0 10px 0 6px;
+  font-size: 1em;
+  line-height: 30px;
+  height: 30px;
+  font-weight: 700;
+  border-bottom: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: #06ac38;
+  color: #fff;
+  border-radius: 3px;
+  -webkit-transition: box-shadow .4s,opacity .4s;
+  transition: box-shadow .4s,opacity .4s;
+}
+
+.download-link a .material-icons {
+  font-size: 18px;
+  vertical-align: -4px;
+  padding-right: 2px;
+}
+
+.download-link a:focus,
+.download-link a:hover {
+  box-shadow: 0 4px 7px rgba(0,0,0,.23),0 8px 25px rgba(0,0,0,.05);
+  opacity: .8;
+}
+
+/* Hide download link when printing. */
+@media print {
+  .download-link {
+    display: none;
+  }
+}
+
+/* Debugging outlines for lazy loading. */
+/*
+article label.hidden { outline: 2px solid #f00 !important; }
+article label.loaded { outline: 2px solid #0f0 !important; }
+*/

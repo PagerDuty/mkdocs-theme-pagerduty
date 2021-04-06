@@ -1,0 +1,12 @@
+  <div class="content-wrapper">
+    <div id="logo">
+      <a href="{{ base_url }}" title="Go to {{ config.theme.title | default(config.site_name, true) }} homepage.">
+        <img src="{{ base_url }}/assets/images/logo.png" title="PagerDuty" />
+      </a>
+      <span class="subtitle">
+        {{ config.theme.title | default(config.site_name, true) }}
+      </span>
+    </div>
+
+    {% include "_search.html" %}
+  </div>

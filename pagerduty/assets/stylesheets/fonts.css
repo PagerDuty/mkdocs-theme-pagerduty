@@ -1,0 +1,103 @@
+/* Colfax Font */
+@font-face {
+  font-family: 'Colfax';
+  src: url('/assets/fonts/colfax/ColfaxWebBold.eot');
+  src: url('/assets/fonts/colfax/ColfaxWebBold.woff') format("woff");
+  font-weight: 900;
+  font-style: normal
+}
+
+@font-face {
+  font-family: 'Colfax';
+  src: url('/assets/fonts/colfax/ColfaxWebMedium.eot');
+  src: url('/assets/fonts/colfax/ColfaxWebMedium.woff') format("woff");
+  font-weight: 700;
+  font-style: normal
+}
+
+@font-face {
+  font-family: 'Colfax';
+  src: url('/assets/fonts/colfax/ColfaxWebMediumItalic.eot');
+  src: url('/assets/fonts/colfax/ColfaxWebMediumItalic.woff') format("woff");
+  font-weight: 700;
+  font-style: italic
+}
+
+@font-face {
+  font-family: 'Colfax';
+  src: url('/assets/fonts/colfax/ColfaxWebRegular.eot');
+  src: url('/assets/fonts/colfax/ColfaxWebRegular.woff') format("woff");
+  font-weight: 400;
+  font-style: normal
+}
+
+@font-face {
+  font-family: 'Colfax';
+  src: url('/assets/fonts/colfax/ColfaxWebRegularItalic.eot');
+  src: url('/assets/fonts/colfax/ColfaxWebRegularItalic.woff') format("woff");
+  font-weight: 400;
+  font-style: italic
+}
+
+@font-face {
+  font-family: 'Colfax';
+  src: url('/assets/fonts/colfax/ColfaxWebLight.eot');
+  src: url('/assets/fonts/colfax/ColfaxWebLight.woff') format("woff");
+  font-weight: 100;
+  font-style: normal
+}
+
+@font-face {
+  font-family: 'Colfax';
+  src: url('/assets/fonts/colfax/ColfaxWebLightItalic.eot');
+  src: url('/assets/fonts/colfax/ColfaxWebLightItalic.woff') format("woff");
+  font-weight: 100;
+  font-style: italic
+}
+
+/* The PD "P" icon as a font. */
+@font-face {
+  font-family: 'pagerduty';
+  font-style: normal;
+  font-weight: normal;
+  src: url('/assets/fonts/pagerduty-icon/pagerduty.eot');
+  src: url('/assets/fonts/pagerduty-icon/pagerduty.eot?#iefix') format('embedded-opentype'),
+       url('/assets/fonts/pagerduty-icon/pagerduty.woff') format('woff'),
+       url('/assets/fonts/pagerduty-icon/pagerduty.ttf') format('truetype'),
+       url('/assets/fonts/pagerduty-icon/pagerduty.svg#pagerduty') format('svg');
+}
+
+/* Google Material Icons
+   https://github.com/google/material-design-icons
+   See full list of icons here: https://material.io/resources/icons/
+*/
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/assets/fonts/material-icons/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url('/assets/fonts/material-icons/MaterialIcons-Regular.woff2') format('woff2'),
+       url('/assets/fonts/material-icons/MaterialIcons-Regular.woff') format('woff'),
+       url('/assets/fonts/material-icons/MaterialIcons-Regular.ttf') format('truetype');
+}
+
+/* Specific settings for material icons. */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'liga';
+}

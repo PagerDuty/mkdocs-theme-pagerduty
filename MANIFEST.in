@@ -1,0 +1,15 @@
+# Web Assest
+recursive-include pagerduty *.ico *.js *.css *.png *.jpg *.html *.txt
+
+# Font Assets
+recursive-include pagerduty *.eot *.svg *.ttf *.woff *.woff2 *.ijmap
+
+# Configs
+recursive-include pagerduty *.yml
+
+# Don't include Python
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+
+# Don't forget the license.
+include LICENSE

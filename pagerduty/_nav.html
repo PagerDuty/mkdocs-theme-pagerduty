@@ -1,0 +1,24 @@
+<!-- This is a cheat for mobile navigation, allowing us to store state in a checkbox. -->
+<input id="mobile-nav-link" type="checkbox"  />
+<label id="mobile-nav-link-selector" for="mobile-nav-link" role="button"></label>
+<nav>
+  <div id="nav-title">{{ config.theme.title | default(config.site_name, true) }}</div>
+{% if nav|length>1 -%}
+  <ul>
+  {% for nav_item in nav -%}
+    {% if nav_item.children -%}
+      <li>
+        <span class="subsection">{{ nav_item.title }}</span>
+        <ul>
+        {% for nav_item in nav_item.children -%}
+          {% include "_nav_item.html" %}
+        {% endfor -%}
+        </ul>
+      </li>
+    {% else -%}
+      {% include "_nav_item.html" %}
+    {% endif -%}
+  {% endfor -%}
+  </ul>
+{% endif -%}
+</nav>

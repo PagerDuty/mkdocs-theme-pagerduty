@@ -1,0 +1,10 @@
+{% if page and page.meta and page.meta.hero %}
+<section id="hero">
+  <img alt="{% if page.meta.hero_alt_text %}{{ page.meta.hero_alt_text }}{% endif %}" src="{{ page.meta.hero|url }}" />
+  {% if page.meta.hero_credit_url %}
+  <div class="credit">
+    <a target="_blank" href="{{ page.meta.hero_credit_url }}">{{ page.meta.hero_credit_url_text }}</a> {{ page.meta.hero_credit_text }}
+  </div>
+  {% endif %}
+</section>
+{% endif %}

@@ -1,0 +1,15 @@
+  <nav id="breadcrumbs">
+    <div class="content-wrapper">
+      <p><a href="{{ base_url }}">{{ config.theme.title | default(config.site_name, true) }}</a></p>
+      {% if page %}
+        {% for doc in page.ancestors %}
+          {% if doc.link %}
+            <p><a href="{{ doc.link|e }}">{{ doc.title }}</a></p>
+          {% else %}
+            <p>{{ doc.title }}</p>
+          {% endif %}
+        {% endfor %}
+        <h1>{{ page.title }}</h1>
+      {% endif %}
+    </div>
+  </nav>

@@ -1,0 +1,12 @@
+        <li{% if nav_item.active %} class="active"{% endif %}>
+          <a title="{{ nav_item.title }}" href="{{ nav_item.url|url }}">{{ nav_item.title }}</a>
+          {% if nav_item.active and page.toc -%}
+            <ul id="toc">
+            {% for toc_item in page.toc -%}
+                <li class="anchor">
+                  <a title="{{ toc_item.title }}" href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+                </li>
+            {% endfor -%}
+            </ul>
+          {% endif -%}
+        </li>

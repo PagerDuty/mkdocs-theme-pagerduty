@@ -1,0 +1,2377 @@
+/* Colors
+***************************************************************************************************/
+
+:root {
+  --theme-primary-color: #005a24; /* Used for the breadcrumb bar, etc. */
+  --theme-primary-color-font: #ffe664; /* Font color to use when on top of primary color. */
+  --theme-secondary-color: #06ac38; /* Used for navigation, etc. */
+}
+
+/* Responsive Layouts
+***************************************************************************************************/
+/*
+This CSS uses responsive layout to change things depending on screen size and type.
+
+Here's a list of the different width's we change layout at. Ctrl+F to find the changes.
+
+1350px - Take up full screen width, since our forced container is normally 1300px.
+960px - Switch to mobile navigation with burger menu. Change logo to just P.
+720px - Remove icons for quotes/asides. Slides change to full width. Shrink header for mobile.
+660px - Change things to fit a mobile layout. Search bar goes full width, footer changes, etc.
+360px - Reaaaally small screens. Change some final things.
+*/
+
+/* Defaults
+***************************************************************************************************/
+html, body {
+  background: #fff;
+  color: #222;
+  min-height: 100%;
+
+  font-family: Colfax, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-size-adjust: 100%;
+  line-height: 1.3;
+  text-rendering: optimizeLegibility;
+
+  /* Font anti-aliasing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  min-height: 100%
+}
+
+/* Apply a natural box layout model to everything */
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Default Typography Styles
+***************************************************************************************************/
+
+/* Selection */
+::-moz-selection {
+  background-color: #000;
+  color: #fff;
+  text-shadow: none;
+}
+::selection {
+  background-color: #000;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* Abbreviations */
+abbr {
+  border-bottom: 1px dotted #aaa;
+  text-decoration: none;
+  cursor: help;
+}
+
+  @media print {
+    abbr {
+      border-bottom: none;
+    }
+  }
+
+/* Quotes */
+blockquote {
+  font-style: italic;
+}
+
+/* Code blocks */
+pre, code {
+  font-family: 'Courier New', 'Courier', monospace;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Emphasis / Strong */
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* Subscript and Superscript */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+/* Highlighted Text */
+mark {
+  margin: 0 .25em;
+  padding: .0625em 0em;
+  border-radius: .2rem;
+  background-color: rgba(255,235,59,.5);
+  -webkit-box-shadow: 0.25em 0 0 rgba(255,235,59,.5), -0.25em 0 0 rgba(255,235,59,.5);
+  box-shadow: 0.25em 0 0 rgba(255,235,59,.5), -0.25em 0 0 rgba(255,235,59,.5);
+  word-break: break-word;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+  @media print {
+    mark {
+      -webkit-print-color-adjust: exact; /* Force to show when printing. Chrome/Safari only :( */
+    }
+  }
+
+/* Links */
+a:link,
+a:visited {
+  font-weight: normal;
+  text-decoration: underline;
+  -webkit-transition: color .25s;
+  transition: color .25s;
+  color: #222;
+}
+
+a:visited {
+  color: #663366;
+}
+
+a:hover {
+  color: #f00;
+}
+
+/* Icons
+***************************************************************************************************/
+
+.icon:before {
+  font-family: 'Material Icons';
+}
+
+/* Tick / Cross */
+span.bad:before {
+  content: "\e000";
+  color: #da2e3c;
+  font-size: 1.2em;
+  vertical-align: -.2em;
+}
+
+span.good:before {
+  content: "\e86c";
+  color: #06ac38;
+  font-size: 1.2em;
+  vertical-align: -.2em;
+}
+
+/* PagerDuty P icon in main header */
+.icon-pagerduty:before {
+  font-family: 'pagerduty';
+  font-size: 0.8em;
+  content: "\0041";
+}
+
+/* Main Layout - Positioning
+***************************************************************************************************/
+
+/* Children of body are flex'd by column: header, main, footer. */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+  @media print {
+    body {
+      display: block; /* Prevent text getting cut off mid-line. */
+    }
+  }
+
+/* Primary content area of the page (between header and footer). */
+main {
+  /* Take up any remaining space between header/footer. */
+  flex-grow: 1;
+
+  /* Keep it a fixed width and centered. */
+  width: 1300px;
+  margin: 0 auto;
+  justify-content: center;
+
+  /* Items within the main area are also flex'd */
+  display: flex;
+}
+
+/* Within main content, we have our sidebar nav, which we want a fixed width on the left. */
+main nav {
+  width: 250px;
+  float: left;
+}
+
+/* ..and the main content itself, which should take up all remaining space. */
+article {
+  width: auto;
+  flex: 1;
+}
+
+/* For debugging layout, give them each background colours. */
+/* Makes it easier for ensuring layout works properly in each screen size and for mobile, etc */
+
+/* body { background: #000 !important; }
+header { background: #00f !important; }
+main { background: #f00 !important; outline: 3px dotted #f00; }
+main nav { background: #f0f !important; }
+main article { background: #fff !important; }
+footer { background: #ff0 !important; } */
+
+/* Use percentage widths once we drop below container size. */
+@media only screen and (max-width: 1350px)
+{
+  main {
+    width: 100%;
+    padding: 0em 1em;
+  }
+
+    main nav {
+      width: 15%;
+    }
+}
+
+@media only screen and (max-width: 960px)
+{
+  main {
+    padding-left: .5em;
+  }
+}
+
+@media print {
+  main {
+    width: 100%;
+    display: block;
+  }
+}
+
+/* Main Layout - Style
+***************************************************************************************************/
+
+body {
+  background: #fff;
+}
+
+/* Header is logo, subtitle, and some links. Does NOT include breadcrumbs. */
+header {
+  background: #fff;
+  color: #222;
+  height: 4.5em;
+  z-index: 10;
+
+  /* Make header sticky, so title and mobile nav always visible. */
+  top: 0px;
+  position: -webkit-sticky; /* Safari needs this. */
+  position: sticky;
+}
+
+  /* No need for such a big header on smaller devices. */
+  @media only screen and (max-width: 720px) {
+    header {
+      height: 4em;
+    }
+  }
+
+  @media print {
+    header {
+      height: auto;
+      position: relative;
+    }
+  }
+
+/* Content wrappers are used within other top-level alements (header, footer, breadcrumbs, etc)
+   to center them on the page with a certain width. */
+.content-wrapper {
+  width: 1300px;
+  margin: 0 auto;
+}
+
+  @media only screen and (max-width: 1350px)
+  {
+    .content-wrapper {
+      width: 100%;
+    }
+  }
+
+  @media print {
+    .content-wrapper {
+      padding: 0em;
+      width: 100%;
+    }
+  }
+
+/* Article is the main page content. Does NOT include navigation. */
+article {
+  background: #fff;
+  margin: 0em;
+  padding: 1em 2em;
+  overflow: hidden;
+  position: relative;
+}
+
+  @media only screen and (max-width: 660px)
+  {
+    article {
+      padding-left: 0em;
+      padding-right: 0em;
+    }
+  }
+
+  @media print {
+    article {
+      padding: 0em;
+      width: 100%;
+    }
+  }
+
+article:after {
+  content: " ";
+  display: block;
+  clear: both
+}
+
+/* Footer is within body only. Not part of <main>. */
+footer {
+  background: #eee;
+}
+
+/* Header - Logo & Subtitle
+***************************************************************************************************/
+
+#logo {
+  width: 100%;
+  height: 2.5em;
+  margin-top: 1em;
+  display: inline-block;
+}
+
+  @media only screen and (max-width: 1350px)
+  {
+    #logo {
+      padding: 0em 1em;
+    }
+  }
+
+  @media print {
+    #logo {
+      margin-top: 0em;
+    }
+  }
+
+  /* Change to an SVG logo as background and position properly. */
+  #logo a {
+    min-height: 3.2em;
+    width: 10em;
+
+    background: url(/assets/images/logo.svg) 0em 0.2em no-repeat;
+    background-size: contain;
+    display: block;
+    float: left;
+  }
+
+  @media print {
+    #logo a {
+      -webkit-print-color-adjust: exact; /* Force to show when printing. Chrome/Safari only :( */
+
+      /* Change to non-SVG logo for printing. */
+      /* background: url(/assets/images/logo.png) 0em 0.2em no-repeat;
+      background-size: contain; */
+    }
+  }
+
+  /* A trick to only show the P of the logo when we get cramped for space. */
+  @media only screen and (max-width: 960px)
+  {
+    #logo a {
+      width: 1.2em;
+      background-size: 900%;
+    }
+  }
+
+  #logo img {
+    display: none;
+  }
+
+  #logo span.subtitle {
+    font-size: 1.7em;
+    padding-top: 0.145em;
+    color: #000;
+    height: 100%;
+    padding-left: .2em;
+    display: block;
+    width: auto;
+    padding-right: 2.5em;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* A trick to only show the P of the logo when we get cramped for space. */
+  @media only screen and (max-width: 960px)
+  {
+    #logo span.subtitle {
+      padding-left: 0.3em;
+    }
+  }
+
+  /* No need for such a big header on smaller devices. */
+  @media only screen and (max-width: 720px) {
+    #logo {
+      height: 2em;
+      margin-top: 0.8em;
+    }
+
+    #logo a {
+      height: 2em;
+      width: .9em;
+      margin-top: 0.15em;
+      background-size: 900%;
+    }
+
+    #logo span.subtitle {
+      font-size: 1.5em;
+      padding-bottom: 1.3em;
+    }
+  }
+
+  /* When we get too small, hide the title all together. */
+  /* @media only screen and (max-width: 660px)
+  {
+    #logo {
+      width: 1em;
+    }
+  } */
+
+  @media print {
+    #logo span.subtitle {
+      display: none; /* It's in the breadcrumbs. */
+    }
+  }
+
+/* Search
+***************************************************************************************************/
+
+/* Use checkbox for state. */
+#mobile-search-link {
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
+  position: absolute; /* Basically hide it. */
+}
+
+/* The main container for search content, but doesn't include the checkbox/label trigger. */
+#search {
+  position: absolute;
+  top: -4.5em; /* Hide offscreen by default. */
+  width: 100%;
+  text-align: right;
+  height: 4.5em;
+  z-index: 10;
+  overflow: visible;
+  background: #fff;
+  opacity: 0;
+
+  transition: top 0.01s ease-in-out 0.2s, opacity 0.1s ease-in-out 0.1s; /* Animate out */
+}
+
+  /* Change for smaller header. */
+  @media only screen and (max-width: 720px) {
+    #search {
+      height: 4em;
+    }
+  }
+
+/* The results container. */
+#mkdocs-search-results {
+  display: block;
+  top: -1em; /* By default, hide off screen. */
+  height: 0em;
+  width: 100vw;
+  position: fixed;
+  left: 0em;
+
+  z-index: 2;
+  font-size: 1em;
+  background: #eee;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 2px 3px rgba(0,0,0,.24), 0 3px 8px rgba(0,0,0,.05);
+  opacity: 0;
+
+  transition: height 0.08s ease-in-out,
+              top 0s ease-in-out 0.1s,
+              opacity 0.1s ease-in-out; /* Collapse animation. */
+}
+
+  /* The "No results" message. */
+  #mkdocs-search-results p {
+    text-align: center;
+    width: 100%;
+    font-size: 1.2em;
+    padding: 1em;
+  }
+
+  /* Each result is an article. */
+  #mkdocs-search-results article {
+    width: 100%;
+    padding: .8em;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+  }
+
+  #mkdocs-search-results article:hover {
+    background: #f3f3f3;
+  }
+
+  /* Page title for the result. */
+  #mkdocs-search-results article h3 {
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0em 0.2em;
+    margin: 0em;
+    text-align: left;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+    #mkdocs-search-results article h3 a {
+      font-weight: bold;
+      text-decoration: none;
+      border-bottom: none;
+      color: #555;
+    }
+
+  /* Text snippet for the result. */
+  #mkdocs-search-results article p {
+    font-size: .95em;
+    padding: 0em 0.2em;
+    margin: 0em;
+    text-align: left;
+    color: #888;
+    font-style: italic;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Centered, with page width. */
+  #search #mkdocs-search-results article h3,
+  #search #mkdocs-search-results article p {
+    width: 1300px;
+    margin: 0 auto;
+  }
+
+  /* As screen gets smaller, use entire width. */
+  @media only screen and (max-width: 1350px)
+  {
+    #search #mkdocs-search-results article h3,
+    #search #mkdocs-search-results article p {
+      width: 100%;
+    }
+  }
+
+/* The search input box style. */
+#search #mkdocs-search-query {
+  position: relative;
+  width: 100%;
+  left: 0em;
+  top: -4em; /* hide out of view, so we can animate it in. */
+  z-index: 50;
+  background: #fff;
+  height: 3.45em;
+  padding-left: 6em;
+  border: none;
+  border-radius: 0px;
+  transition: none;
+  padding: 1em 0px;
+  font-size: 1.3em;
+  padding-left: 3em; /* To account for back icon. */
+  opacity: 0;
+
+  transition: top 0.05s ease-in-out 0.01s, opacity 0.1s ease-in-out; /* Animate out */
+}
+
+  /* Customize the search cancel button. */
+  #search #mkdocs-search-query::-webkit-search-cancel-button {
+    position:relative;
+    right: 0.5em;
+
+    -webkit-appearance: none;
+    width: 1.5em;
+    height: 1.5em;
+
+    /* https://material.io/resources/icons/?icon=cancel&style=baseline */
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>') center center no-repeat;;
+
+    font-size: 1em;
+  }
+
+  /* Scale down when header gets scaled. */
+  @media only screen and (max-width: 720px) {
+    #search #mkdocs-search-query {
+      padding-left: 5em;
+      height: 3.1em;
+    }
+  }
+
+/* So the triggers position relative to this container. */
+header .content-wrapper {
+  position: relative;
+}
+
+/* Container for label that triggers search. */
+#mobile-search-link-selector {
+  position: absolute;
+  display: block;
+  top: 0px;
+  right: 0px;
+  height: 4.5em; /* Match header height */
+  width: 4.5em;
+
+  z-index: 900;
+}
+
+  /* The search icon. */
+  #mobile-search-link-selector:after {
+    font-family: "Material Icons";
+    font-size: 2.5em;
+    content: "\e8b6";
+    color: #000;
+    position: absolute;
+    display: block;
+    top: 0px;
+    right: 0px;
+    width: 1.8em;
+    text-align: center;
+    padding-top: 0.2em;
+    height: 1.8em;
+    cursor: pointer;
+  }
+
+  /* When search enabled, switch to back icon. */
+  #mobile-search-link:checked ~ #mobile-search-link-selector:after {
+    position: absolute;
+    content: "\e5c4";
+    left: 0em;
+    top: 0em;
+    height: 100%;
+    padding-top: 0.3em;
+    font-size: 2.3em;
+    z-index: 100;
+  }
+
+  /* As screen gets smaller header, we need to scale down the icons appropriately. */
+  @media only screen and (max-width: 720px) {
+    #mobile-search-link-selector:after,
+    #mobile-search-link:checked ~ #mobile-search-link-selector:after  {
+      font-size: 2.2em;
+    }
+  }
+
+  #mobile-search-link:checked ~ #mobile-search-link-selector {
+    top: 0px;
+    left: 0px;
+    z-index: 200;
+  }
+
+  /* Remove navigation icon when in search mode. */
+  /* TODO: They aren't children, so this doesn't work. Booooo. */
+  #mobile-search-link:checked ~ #mobile-nav-link-selector,
+  #mobile-search-link:checked ~ #mobile-nav-link-selector:after {
+    display: none;
+  }
+
+  /* If mobile navigation enabled, we need to push things over a bit for now. */
+  @media only screen and (max-width: 960px) {
+    #search #mkdocs-search-query {
+      padding-left: 6em;
+    }
+
+    #mobile-search-link-selector {
+      height: 4em;
+    }
+
+    #mobile-search-link:checked ~ #mobile-search-link-selector:after  {
+      left: 1.6em;
+      width: 1.5em;
+    }
+  }
+
+  /* And on even smaller screens, we need to change things back a bit. */
+  @media only screen and (max-width: 720px) {
+    #search #mkdocs-search-query {
+      padding-left: 5em;
+      height: 3.1em;
+    }
+
+    #mobile-search-link:checked ~ #mobile-search-link-selector:after  {
+      width: 1.5em;
+      left: 1.6em;
+      font-size: 2em;
+    }
+  }
+
+  /* When search is enabled, bring search into view. */
+  #mobile-search-link:checked ~ #search {
+    top: 0em !important;
+    z-index: 100;
+    opacity: 1;
+
+    transition: none; /* Don't animate in. */
+  }
+
+  /* And bring the input box into view. */
+  #mobile-search-link:checked ~ #search #mkdocs-search-query {
+    top: 0em !important;
+    opacity: 1;
+    transition: top 0.1s ease-in-out, opacity 0.1s ease-in-out 0.1; /* Animate in. */
+  }
+
+  /* And bring the results sectio into view. */
+  #mobile-search-link:checked ~ #search #mkdocs-search-results {
+    height: 50vh;
+    top: 4.5em;
+    border-top: 1px solid #aaa;
+    opacity: 1;
+    transition: height 0.08s ease-in-out 0.2s; /* Expand animation. */
+  }
+
+  /* Use full height when on smaller screens. */
+  @media only screen and (max-width: 720px) {
+    #mobile-search-link:checked ~ #search #mkdocs-search-results {
+      height: calc(100vh - 4em);
+
+      transition: opacity 0.08s ease-in-out; /* Use opacity animation in for smaller screens. */
+    }
+  }
+
+  /* Need to position results differently when we have smaller header. */
+  @media only screen and (max-width: 720px) {
+    #mobile-search-link:checked ~ #search #mkdocs-search-results {
+      top: 4em;
+    }
+  }
+
+/* Hide all search related things when printing. */
+@media print {
+  #mobile-search-link,
+  #mobile-search-link-selector,
+  #mobile-search-link-selector:after,
+  #search {
+    display: none !important;
+  }
+}
+
+/* Breadcrumbs
+***************************************************************************************************/
+
+nav#breadcrumbs {
+  max-width: 100%;
+  padding: .6em;
+  background: none;
+  font-size: 1.1em;
+  background: var(--theme-primary-color, #000);
+  position: sticky;
+  top: 1.6em;
+  z-index: 9;
+
+  /* Fix for vertical alignment of contents. */
+  display: table-cell;
+  padding-bottom: 0.65em;
+}
+    /* Different sticky position on smaller screens. */
+    @media only screen and (max-width: 720px) {
+      nav#breadcrumbs {
+        top: 1.2em;
+      }
+    }
+
+    /* Icon in the navbar, can be used by sites for their custom icon. */
+    /* nav#breadcrumbs .content-wrapper > p:first-child:before {
+      font-family: 'pagerduty';
+      font-size: 1em;
+      content: "\0041";
+      display: block;
+      float: left;
+      padding-right: 0.5em;
+    } */
+
+    /* Every item in the crumb will be in a p. */
+    nav#breadcrumbs p {
+      display: inline-block;
+      color: #fff;
+      height: 1.25em;
+
+      /* We want the breadcrumbs in the middle of the bar. */
+      vertical-align: middle;
+
+      /* Don't allow one to take up most of the width. */
+      max-width: 30%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      /* Padding for the :after, so it's within the container. */
+      padding-right: 2em;
+      position: relative;
+    }
+
+    /* Not everything will be a link though. */
+    nav#breadcrumbs p a {
+      text-decoration: none;
+      color: #fff;
+    }
+
+    /* The tail of the crumbs. The page we're on. */
+    nav#breadcrumbs h1 {
+      display: inline-block;
+      color: var(--theme-primary-color-font, #fff);
+      font-weight: bold;
+      margin: 0em;
+      padding: 0em;
+      margin-left: -0.07em;
+      vertical-align: middle;
+
+      /* Page title can take up more width though. That's cool. */
+      max-width: calc(70% - .4em);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      height: 1.25em;
+    }
+
+    /* Separators between items. */
+    nav#breadcrumbs p:after {
+      content: "\e315";
+      font-family: "Material Icons";
+      padding: 0em 0.3em 0em .5em;
+      font-weight: normal;
+      color: #94b2a5;
+
+      /* Display this within the container. */
+      display: block;
+      position: absolute;
+      top: 0em;
+      right: 0em;
+      width: 2em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Make breadcrumbs collapsable for smaller screens. */
+    @media only screen and (max-width: 660px)
+    {
+      nav#breadcrumbs p:not(:first-child) {
+        position: relative;
+        display: inline-block;
+        text-indent: -999px;
+        padding-right: 2em;
+        overflow: visible;
+
+        padding: 0em;
+
+        /* Hide intermediary breadcrumbs on smaller screens. */
+        display: none;
+      }
+    }
+
+    @media print {
+      nav#breadcrumbs {
+        background: transparent;
+        padding: 0em;
+        color: #000;
+        position: relative;
+        top: 0em;
+      }
+
+      nav#breadcrumbs p,
+      nav#breadcrumbs p a,
+      nav#breadcrumbs h1 {
+        color: #000;
+        max-width: 100%;
+        display: inline;
+        vertical-align: baseline;
+      }
+
+      nav#breadcrumbs .content-wrapper > p:first-child:before {
+        display: none;
+      }
+    }
+
+/* Content Navigation
+***************************************************************************************************/
+
+/* This is within our <main> content. Don't use just "nav" as there are other ones on the page. */
+main nav {
+  line-height: 1;
+  padding-top: 1em;
+
+  position: -webkit-sticky; /* Safari needs this. */
+  position: sticky;
+  top: 4em;
+  align-self: flex-start; /* To allow sticky position to work in a flexbox. */
+  height: auto;
+
+  font-size: 1em;
+}
+
+  /* Hide the title for normal navigation. */
+  main nav #nav-title {
+    display: none;
+  }
+
+  /* Hide navigation when printing. */
+  @media print {
+    main nav {
+      display: none;
+    }
+  }
+
+  main nav ul {
+    margin: 4px 0px 0px -1.7em;
+    padding-left: 0em;
+  }
+
+  main nav li a {
+    display: block;
+    padding: 1em 1.7em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none !important;
+    color: #333 !important;
+    font-weight: 700 !important;
+  }
+
+  main nav li a:hover {
+    color: var(--theme-secondary-color, #000) !important;
+  }
+
+  /*  Indent subsections. */
+  main nav li ul {
+    margin-left: 1em;
+  }
+
+  /* Subsection headings. Non-navigable ones that are used for separation. */
+  main nav span.subsection {
+    display: block;
+    padding: 1em 1.7em;
+    font-weight: 900;
+    color: #888;
+    width: 100%;
+  	white-space: nowrap;
+  	text-overflow: ellipsis;
+  }
+
+  /* Active item are for the current page. This highlights the heading. */
+  main nav li.active > a {
+    color: var(--theme-secondary-color, #000) !important;
+    text-decoration: none;
+    font-weight: 600;
+    border-left: none !important;
+  }
+
+  /* Table of contents for the current page, will appear below the li.active. */
+  main nav li.active #toc {
+    margin-bottom: .5em;
+  }
+
+  main nav li.active #toc a {
+    margin-left: 1em;
+    padding: 0.7em 1.7em 0.7em 0.7em;
+    font-weight: 400 !important;
+    border-left: 3px solid var(--theme-secondary-color, #000);
+  }
+
+  main nav li.active #toc a:hover {
+    color: var(--theme-secondary-color, #000) !important;
+  }
+
+  /* Don't overflow horizontally, ellipsisize instead. */
+  main nav ul li a {
+  	white-space: nowrap;
+  	text-overflow: ellipsis;
+  }
+
+/* Mobile sidebar navigation trick, using checkbox for state. */
+#mobile-nav-link {
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
+}
+
+  @media print {
+    #mobile-nav-link {
+      display: none;
+    }
+  }
+
+#mobile-nav-link-selector {
+  display: block;
+  width: 0em;
+  height: 0em;
+}
+
+#mobile-nav-link-selector:after {
+  display: none;
+}
+
+/* Navigation needs to change around for smaller screens. */
+@media only screen and (max-width: 960px)
+{
+  /* Show site name in navigation */
+  main nav #nav-title {
+    display: block;
+    font-size: 1.2em;
+    margin-bottom: .5em;
+    position: relative;
+    z-index: 100;
+    background: var(--theme-secondary-color, #4b4f4f);
+    color: #fff;
+    padding: 1em 2em;
+    margin-top: -1em;
+    margin-left: -1.8em;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: -1em;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Icon in the navbar title, can be used by sites for their custom icon. */
+  main nav #nav-title:before {
+    font-family: 'pagerduty';
+    font-size: 1em;
+    content: "\0041";
+    display: block;
+    float: left;
+    padding-right: 0.5em;
+  }
+
+  /* No need to line up with navigation if there's no navigation. */
+  main article {
+    padding-top: 0em;
+    padding-left: 0em;
+  }
+
+  /* Shift over the logo and subtitle to make room for burger menu. */
+  #logo {
+    margin-left: 3.5em;
+    width: calc(100% - 3.5em);
+  }
+
+  /* The label that can be clicked to trigger navigation. */
+  #mobile-nav-link-selector {
+    display: block;
+    top: 0px;
+    left: 0px;
+    z-index: 90;
+
+    transition: background 0.1s ease-in-out;
+  }
+
+  /* Use burger menu icon, and position appropriately. */
+  #mobile-nav-link-selector:after {
+    font-family: "Material Icons";
+    font-size: 2.5em;
+    content: "\e5d2";
+    text-align: center;
+    color: #000;
+
+    background: transparent;
+
+    cursor: pointer;
+
+    position: fixed;
+    display: block;
+    top: 0px;
+    left: 0px;
+    width: 1.8em;
+    padding-top: 0.2em;
+    height: 1.8em;
+    opacity: 1;
+    transition: opacity 0s ease-in-out 0.15s; /* Delay to prevent overlapping on animation. */
+  }
+
+  /* When navigation is enabled, the selector becomes the lightroom background. */
+  #mobile-nav-link:checked ~ #mobile-nav-link-selector {
+    position: fixed;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    left: 0px;
+    top: 0px;
+    z-index: 49;
+    text-indent: -999px;
+    opacity: 1;
+  }
+
+  /* And the icon is hidden. */
+  #mobile-nav-link:checked ~ #mobile-nav-link-selector:after {
+    opacity: 0;
+  }
+
+  /* Move navigation off the screen to the left, and fix it's position. */
+  main nav {
+    position: fixed !important;
+    width: 300px;
+    left: -300px;
+    top: 0em;
+    z-index: 50;
+    background: #fff;
+    height: 100vh;
+    padding-left: 2em;
+    border-right: 1px solid #888;
+    transition: left 0.2s ease-in-out;
+    overflow-y: scroll;
+    padding-bottom: 1.5em;
+  }
+
+  /* When navigation enabled, move it back into view! */
+  #mobile-nav-link:checked ~ nav {
+    left: 0px !important;
+  }
+}
+
+/* Make the buger icon smaller on smaller screens. */
+@media only screen and (max-width: 720px) {
+  #mobile-nav-link-selector:after {
+    font-size: 2.2em;
+  }
+
+  #logo {
+    margin-left: 2.8em;
+    width: calc(100% - 2.8em);
+  }
+}
+
+/* Hero Images
+***************************************************************************************************/
+
+#hero {
+  position: relative;
+  top: 0em;
+  width: 100%;
+  height: 15em;
+  background: #eee;
+  overflow: hidden;
+}
+
+  @media only screen and (max-width: 960px)
+  {
+    #hero {
+      height: 11em;
+    }
+  }
+
+  @media only screen and (max-width: 660px)
+  {
+    #hero {
+      height: 7em;
+    }
+  }
+
+  @media only screen and (max-width: 360px)
+  {
+    #hero {
+      height: 5em;
+    }
+  }
+
+  /* Hide hero when printing. */
+  @media print {
+    #hero {
+      display: none;
+    }
+  }
+
+  #hero img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  #hero .credit {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 1em;
+    font-style: italic;
+    padding: .3em 1em;
+    color: #000;
+    border-top-left-radius: 3px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+/* Article - This is where the main content of our text appears.
+***************************************************************************************************/
+
+article {
+  font-size: 1.1em;
+  line-height: 1.5;
+  padding-right: 0em;
+}
+
+  /* Headings */
+  article h1 {
+    line-height: 1.1;
+    color: var(--theme-primary-color, #000);
+    font-weight: 600;
+    font-size: 2em;
+    padding: .7em 0em .15em;
+
+    /* This is already in the breadcrumb, do we really need it again? */
+    text-indent: -999px;
+    height: 0em;
+    margin: 0em;
+    padding: 0em;
+    margin-bottom: -.3em;
+  }
+
+  article h2 {
+    line-height: 1.1em;
+    color: var(--theme-primary-color, #4b4f4f);
+    font-weight: 600;
+    font-size: 1.7em;
+    padding: 1em 0em 0em;
+    margin: 0;
+    scroll-margin-top: 2em;
+
+    /* Avoid printing a header alone at end of a page. */
+    page-break-after : avoid
+  }
+
+  article h3, article h4 {
+    font-size: 1.3em;
+    color: var(--theme-primary-color, #4b4f4f);
+    padding: 1em 0em 0em;
+    margin: 0;
+    font-weight: 600;
+    scroll-margin-top: 3em;
+  }
+
+  article h4 {
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: -.6em;
+    margin-top: 0.5em;
+    scroll-margin-top: 4em;
+    color: var(--theme-primary-color, #4b4f4f);
+  }
+
+  article h1,
+  article h2,
+  article h3,
+  article h4 {
+    position: relative;
+  }
+
+  /* Content */
+  article p {
+    margin-top: 1.5em;
+  }
+
+  /* Permalinks */
+  article .headerlink {
+    position: absolute;
+    top: 1em;
+    left: -1em;
+    color: transparent;
+    border-bottom: none;
+    z-index: 1;
+    width: 100%;
+  }
+
+  article .headerlink:hover {
+    color: #aaa;
+  }
+
+    @media print {
+      article .headerlink {
+        display: none;
+      }
+    }
+
+  /* Don't show permalinks for h1's */
+  article h1 .headerlink {
+    display: none
+  }
+
+  /* Images */
+  article img {
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+    break-inside: avoid; /* Try not to split over pages when printing. */
+  }
+
+  /* Don't cut off images when printing. */
+  @media print {
+    article img {
+      page-break-inside: avoid;
+    }
+  }
+
+  /* Image captions */
+  article img + em {
+    position: relative;
+    font-size: .9em;
+    margin-right: 0em;
+    padding: .3em 1em;
+    float: right;
+    margin-top: -2em;
+    color: #333;
+    border-top-left-radius: 3px;
+    background: rgba(255, 255, 255, 0.7);
+  }
+
+  @media print {
+    article img + em {
+      float: none;
+      text-align: left;
+      display: block;
+      padding: 0em;
+    }
+  }
+
+  /* Links */
+  article a {
+    border-bottom: 1px solid;
+    text-decoration: none !important;
+  }
+
+  @media print {
+    article a:after {
+      content: " [" attr(href) "] ";
+    }
+  }
+
+  /* Inline code */
+  article span.code,
+  article code {
+    font-family: monospace;
+    border-radius: .2rem;
+    font-size: 1em;
+    border: 1px solid #a5c6de;
+    background: #fbfbfb;
+    color: #00607f;
+    margin: 0 0.1em;
+    padding: .0625em 0.2em;
+  }
+
+  /* Code block */
+  article pre {
+    position: relative;
+    display: block;
+    margin: 1em 0em;;
+    padding: 1em;
+    line-height: 1.5em;
+    border-radius: 5px;
+    font-family: courier, monospace;
+    background: #333;
+    color: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  article pre:after {
+    display: block;
+    position: absolute;
+    top: .4em;
+    right: 0px;
+    color: #888;
+    content: "\e86f";
+    float: left;
+    font-family: 'Material Icons';
+    font-size: 24px;;
+    width: 1.5em;
+    height: 1em;
+    margin-left: -1em;
+  }
+
+  @media print {
+    article pre {
+      background: #fff;
+      color: #000;
+    }
+
+    article pre span {
+      color: #000 !important;
+    }
+
+    article pre:after {
+      display: none;
+    }
+  }
+
+  /* Fix code blocks so they don't behave like the inline ones. */
+  article pre code {
+    border-radius: inherit;
+    border: inherit;
+    background: transparent;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Lists */
+  article ol,
+  article ul {
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    margin-left: 1.5em;
+    padding: 0px;
+  }
+
+  article ul {
+    list-style-type: none;
+  }
+
+  article ol {
+    list-style-type: decimal;
+  }
+
+  article li,
+  article li ol,
+  article li ul {
+    margin-top: .75em;
+  }
+
+  article li {
+    margin-left: 1.2em;
+  }
+
+  article li p {
+    display: inline
+  }
+
+  /* List item arrow */
+  article ul > li:before {
+    content: "\e315";
+    display: block;
+    float: left;
+    font-family: 'Material Icons';
+    font-size: 16px;
+    width: 1.2em;
+    margin-left: -1.2em;
+  }
+
+  /* Horizontal Rules */
+  article hr {
+    margin-top: 1.5em;
+    background: #f4f4f4;
+    border: none;
+    height: 0.2em;
+  }
+
+  @media print {
+    article hr {
+       -webkit-print-color-adjust: exact; /* Force to show when printing. Chrome/Safari only :( */
+    }
+  }
+
+  /* Embeds */
+  article iframe {
+    display: block;
+    margin: 0 auto;
+    margin-top: 1em;
+    background: #f3f3f3;
+    border-radius: 4px;
+  }
+
+  /* Scale on smaller screens so we don't cut off the sides. */
+  @media only screen and (max-width: 600px) {
+    article iframe {
+      width: 100%;
+    }
+  }
+
+/* Tables
+***************************************************************************************************/
+
+article table {
+  margin: 1.5em auto;
+  font-size: 0.9em;
+  overflow: hidden;
+  break-inside: avoid; /* Try not to split over pages when printing. */
+}
+
+article table th {
+  min-width: 100px;
+  font-size: 1em;
+  color: #fff;
+  font-weight: bold;
+  text-align: left;
+  background: #4b4f4f;
+}
+
+  @media print {
+    article table th {
+      background: #fff;
+      color: #000;
+      border-bottom: 2px solid #000;
+    }
+  }
+
+/* Empty table heading should just be a border. */
+article table th:empty {
+  padding: 0px;
+  padding-bottom: 1px;
+}
+
+  @media print {
+    article table th:empty {
+      border-bottom: none;
+    }
+  }
+
+article table th:first-child {
+  border-top-left-radius: 4px;
+}
+
+article table th:last-child {
+  border-top-right-radius: 4px;
+}
+
+article table td,
+article table th {
+  padding: 1em 1.2em;
+  vertical-align: top;
+}
+
+article table td {
+  border-bottom: 1px solid #4b4f4f;
+}
+
+article table tr:nth-child(2n) td {
+  background: #f4f4f4;
+}
+
+/* Quotes
+***************************************************************************************************/
+
+article blockquote {
+  border-left: 4px solid #fa640a;
+  background: #fff;
+  padding: 0.5em;
+  padding-left: 1.1em;
+  margin-top: 1em;
+  color: #fa640a;
+  font-style: italic;
+  position: relative;
+  margin-left: 3em;
+  width: 95%;
+}
+
+article blockquote:before {
+  font-family: 'Material Icons';
+  content: "\e244";
+  position: absolute;
+  top: -.3em;
+  left: -1.2em;
+  color: #fa640a;
+  font-style: normal;
+  font-size: 3em;
+}
+
+article blockquote p {
+  margin: 0em;
+  padding: 0.5em 0em;
+}
+
+/* Asides
+***************************************************************************************************/
+
+article details {
+  border-left: 4px solid #157ee0;
+  background: #fff;
+  padding: 0.9em;
+  padding-left: 1.1em;
+  margin-top: 1em;
+  color: #157ee0;
+  font-style: normal;
+  position: relative;
+  width: 95%;
+  margin-left: 3em;
+}
+
+article details:before {
+  font-family: 'Material Icons';
+  content: "\e88e";
+  position: absolute;
+  top: -.05em;
+  left: -1.5em;
+  color: #157ee0;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+}
+
+article details summary {
+  font-weight: bold;
+  color: #157ee0;
+  font-style: normal;
+  cursor: pointer;
+}
+
+article details p {
+  margin: 0em;
+  padding: 0.5em 0em;
+}
+
+article details p a:link,
+article details p a:visited {
+  color: #157ee0;
+}
+
+article details p a:hover {
+  color: #f00 !important;
+}
+
+@media only screen and (max-width: 720px) {
+  /* Get rid of the icon for blockquotes and asides. */
+  article blockquote,
+  article details {
+    width: 100% !important;
+    margin-left: 0em !important;
+  }
+
+  article blockquote:before,
+  article details:before {
+    display: none;
+  }
+}
+
+/* Other types of details/aside */
+
+/* Info is the default, but we also want to hide arrows. */
+article details.info summary::marker {
+  display: none;
+}
+
+/* Standlone aside, no summary */
+article details.standalone {
+  padding: 0.5em;
+  padding-left: 1.1em;
+}
+article details.standalone summary {
+  display:none;
+}
+
+/* Warnings */
+article details.warning {
+  border-left: 4px solid #ba120a;
+  color: #ba120a;
+}
+article details.warning:before {
+  color: #ba120a;
+  content: "\e002"; /* Warning triangle */
+}
+article details.warning summary {
+  color: #ba120a;
+}
+article details.warning summary::marker {
+  display:none;
+}
+article details.warning p a:link,
+article details.warning p a:visited {
+  color: #ba120a;
+}
+
+/* Questions */
+article details.question:before {
+  content: "\e887"; /* ? */
+}
+article details.question summary::marker {
+  display:none;
+}
+
+/* Comments */
+article details.comment {
+  border-left: 4px solid #4b4f4f;
+  color: #4b4f4f;
+}
+article details.comment:before {
+  color: #4b4f4f;
+  content: "\e0b9"; /* Comment */
+}
+article details.comment summary {
+  color: #4b4f4f;
+}
+article details.comment summary::marker {
+  display:none;
+}
+article details.comment p a:link,
+article details.comment p a:visited {
+  color: #4b4f4f;
+}
+
+
+@media only screen and (max-width: 720px) {
+  /* Get rid of the icon for blockquotes and asides. */
+  article blockquote,
+  article details.aside {
+    width: 100% !important;
+    margin-left: 0em !important;
+  }
+
+  article blockquote:before,
+  article details.aside:before {
+    display: none;
+  }
+}
+
+article details.hide-arrow summary::marker {
+  display:none;
+}
+
+/* Admonitions
+***************************************************************************************************/
+
+.admonition {
+  margin: 1em 0em 0;
+  padding: 1.5em;
+  color: #fff;
+  background: #06ac38;
+  border-radius: 5px;
+}
+
+  @media print {
+    .admonition {
+      background: #fff !important;
+      padding: 1em 0em;
+    }
+  }
+
+  .admonition > :first-child {
+    margin-top: 0
+  }
+
+  .admonition .admonition-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: -0.5em;
+    margin-top: -0.2em;
+  }
+
+  .admonition .admonition-title:before {
+    content: "\e611";
+    display: block;
+    float: left;
+    font-family: 'Material Icons';
+    font-size: 24px;
+    margin-right: 5px;
+    margin-top: -0.15em;
+    font-weight: normal;
+  }
+
+  .admonition a {
+    color: #fff;
+  }
+
+  .admonition a:hover {
+    color: #000;
+  }
+
+/* Overrides for the different varieties of admonition. */
+
+/* Warnings */
+.admonition.warning { background: #da2e3c; }
+.admonition.warning .admonition-title:before { content: "\e002" }
+@media print { .admonition.warning, article .admonition.warning a { color: #da2e3c; } }
+
+/* Tip */
+.admonition.tip { background: #06ac38; }
+.admonition.tip .admonition-title:before { content: "\e8dc" }
+@media print { .admonition.tip, article .admonition.tip a { color: #06ac38; } }
+
+/* Info */
+.admonition.info { background: #4b4f4f; }
+.admonition.info .admonition-title:before { content: "\e88e"; }
+@media print { .admonition.info, article .admonition.info a { color: #4b4f4f; } }
+
+/* Question */
+.admonition.question { background: #157ee0; }
+.admonition.question .admonition-title:before { content: "\e887"; }
+@media print { .admonition.question, article .admonition.question a { color: #157ee0; } }
+
+/* Note */
+.admonition.note { background: #ffe664; color: #333; }
+.admonition.note a { color: #333; }
+.admonition.note a:hover { color: #000; }
+.admonition.note .admonition-title:before { content: "\e8b0"; }
+@media print { .admonition.note, article .admonition.note a { color: #000; } }
+
+/* Pagination
+***************************************************************************************************/
+
+nav#pagination {
+  background: #fff;
+  height: 5.8em;
+  font-size: 1.2em;
+}
+
+  /* Hide pagination on error pages. */
+  body.error nav#pagination {
+    display: none;
+  }
+
+  /* Hide pagniation when printing. */
+  @media print {
+    nav#pagination {
+      display: none;
+    }
+  }
+
+  nav#pagination .content-wrapper {
+    height: 100%;
+  }
+
+  nav#pagination .previous,
+  nav#pagination .next {
+    display:  block;
+    float: left;
+    width: 50%;
+    height: 100%;
+    position: relative;
+  }
+
+  nav#pagination .previous {
+    padding-left: 3.2em;
+  }
+
+  /* When really small, don't bother showing previous stuff as much. */
+  @media only screen and (max-width: 460px)
+  {
+    nav#pagination .previous {
+      width: 4em;
+    }
+
+    nav#pagination .next {
+      width: calc(100% - 4em);
+    }
+
+    nav#pagination .previous .label,
+    nav#pagination .previous .page .title {
+      display: none;
+    }
+  }
+
+  nav#pagination .next {
+    text-align: right;
+    padding-right: 3.2em;
+  }
+
+  nav#pagination a {
+    text-decoration: none;
+    width: 100%;
+    height: 100%;
+
+    padding-top: 1.45em;
+    display: block;
+    color: #4b4f4f;
+  }
+
+  nav#pagination a:visited {
+    color: #4b4f4f;
+  }
+
+  nav#pagination a:hover {
+    color: var(--theme-secondary-color, #000);
+  }
+
+  /* Next / Previous */
+  nav#pagination .label {
+    color: #999;
+    font-size: 0.85em;
+  }
+
+  nav#pagination .page {
+    font-size: 1.2em;
+  }
+
+  nav#pagination .page .title {
+    font-weight: 500;
+    margin-top: -.1em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  nav#pagination .button {
+    display: block;
+    position: absolute;
+    top: 0px;
+    left: 1em;
+    width: 2em;
+    height: 100%;
+  }
+
+  nav#pagination .button .icon:before {
+    display: block;
+    font-family: 'Material Icons';
+    font-size: 24px;
+    font-weight: bold;
+    color: #999;
+    width: 2em;
+    height: 100%;
+    padding-top: 80%;
+    -webkit-transition: color .25s;
+    transition: color .25s;
+  }
+
+  nav#pagination .next:hover .icon:before,
+  nav#pagination .previous:hover .icon:before {
+    color: var(--theme-secondary-color, #000);
+  }
+
+  nav#pagination .button .icon.icon-previous:before {
+    content: "\e314";
+  }
+  nav#pagination .button .icon.icon-next:before {
+    content: "\e315";
+  }
+
+  nav#pagination .next .button {
+    right: 1.4em; /* ??? lolwut */
+    left: auto;
+  }
+
+/* Footer
+***************************************************************************************************/
+
+footer #ops-guides {
+  margin: 2em auto;
+  margin-bottom: 1em;
+  padding-top: 1em;
+  overflow: visible;
+
+  /* Will work up to about 8 or 9 items before it gets too cramped. */
+  display: flex;
+  flex-wrap: wrap;
+
+  /* Add some Pagey */
+  background: url(/assets/images/pagey/pagey-1.svg) center left no-repeat;
+  background-size: contain;
+  background-position: 0em 50%;
+  padding-left: 15em;
+
+  position: relative;
+}
+
+  /* Hide footer when printing. */
+  @media print {
+    footer {
+      display: none;
+    }
+  }
+
+  footer #ops-guides h2 {
+    display: none;
+  }
+
+  @keyframes expandbounce {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.25);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shrink {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+
+  footer #ops-guides p {
+    text-align: left;
+    font-style: italic;
+    overflow: visible;
+    position: absolute;
+    top: calc(50% - 9em);
+    left: -1.5em;
+    z-index: 1;
+    font-size: 1em;
+    font-weight: bold;
+    border: 2px solid #000;
+    background: #fff;
+    border-radius: 100% 80%;
+    padding: .8em 2em;
+
+    /* Because I can't help myself. */
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+    animation-fill-mode: forwards;
+    animation-name: shrink;
+    animation-duration: 0.1s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+
+  footer #ops-guides:hover p {
+    opacity: 1;
+    animation-fill-mode: forwards;
+    animation-name: expandbounce;
+    animation-duration: 0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+  }
+
+  footer #ops-guides p:before,
+  footer #ops-guides p:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  footer #ops-guides p:before {
+    left: 70px;
+    bottom: -20px;
+    border: 10px solid;
+    border-color: #000 #000 transparent transparent;
+  }
+
+  footer #ops-guides p:after {
+    left: 68px;
+    bottom: -15px;
+    border: 10px solid;
+    border-color: #fff #fff transparent transparent;
+  }
+
+  footer #ops-guides li {
+    float: left;
+    display: block;
+    text-align: center;
+    position: relative;
+    margin-bottom: 2em;
+    flex: 0 0 16.667%;
+  }
+
+  /* Change how many show per row depending on screen width */
+  @media only screen and (max-width: 1350px)
+  {
+    footer #ops-guides li {
+      flex: 0 0 16.667%;
+    }
+  }
+
+  @media only screen and (max-width: 960px)
+  {
+    footer #ops-guides {
+      background-size: 15em;
+    }
+
+    footer #ops-guides li {
+      flex: 0 0 25%;
+    }
+  }
+
+  @media only screen and (max-width: 660px)
+  {
+    footer #ops-guides {
+      padding-left: 0em;
+      padding-top: 16em;
+      background-position: 50% 1em;
+    }
+
+    footer #ops-guides p {
+      left: calc(50% - 9em);
+      top: -.5em;
+
+      opacity: 1;
+      animation-fill-mode: forwards;
+      animation-name: expandbounce;
+      animation-duration: 0.25s;
+      animation-iteration-count: 1;
+      animation-timing-function: linear;
+    }
+
+    footer #ops-guides li {
+      flex: 0 0 33.33%;
+    }
+  }
+
+  @media only screen and (max-width: 440px)
+  {
+    footer #ops-guides li {
+      flex: 0 0 50%;
+    }
+  }
+
+  @media only screen and (max-width: 360px)
+  {
+    footer #ops-guides li {
+      flex: 0 0 100%;
+    }
+  }
+
+  footer #ops-guides li a {
+    display: block;
+    font-size: 1em;
+    color: #333;
+    text-decoration: none;
+    padding-top: 4em;
+    font-weight: normal;
+  }
+
+  footer #ops-guides li a:hover {
+    color: #fa640a;
+  }
+
+  footer #ops-guides li a:before {
+    font-family: "Material Icons";
+    font-size: 2.5em;
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    text-align: center;
+    font-weight: normal;
+    pointer-events: none;
+  }
+
+  /* Ops Guides Icons */
+  footer #ops-guides li#og-incident-response a:before { content: "\e002"; }
+  footer #ops-guides li#og-postmortems a:before { content: "\e880"; }
+  footer #ops-guides li#og-retrospectives a:before { content: "\e86a"; }
+  footer #ops-guides li#og-operational-reviews a:before { content: "\e5c3"; }
+  footer #ops-guides li#og-security-training a:before { content: "\e899"; }
+  footer #ops-guides li#og-business-response a:before { content: "\e001"; }
+  footer #ops-guides li#og-stakeholder-comms a:before { content: "\e0b7"; }
+  footer #ops-guides li#og-ownership a:before { content: "\e7fd"; }
+  footer #ops-guides li#og-devsecops a:before { content: "\e32a"; }
+  footer #ops-guides li#og-autoremediation a:before { content: "\e8ba"; }
+  footer #ops-guides li#og-goingoncall a:before { content: "\e0b0"; }
+
+  footer #ops-guides li p {
+    display: none;
+  }
+
+footer p#outro {
+  color: #555;
+  padding-bottom: 1em;
+  text-align: center;
+  padding-bottom: 1em;
+}
+
+  footer p#outro .material-icons {
+    font-size: 0.8em;
+    color: #da2e3c;
+  }
+
+footer #github-repo-link {
+  text-align: left;
+  float: left;
+  padding-bottom: 1em;
+  margin-top: -2.3em;
+  padding-left: 1em;
+}
+
+footer #social-links {
+  text-align: right;
+  float: right;
+  margin-top: -2.3em;
+  padding-bottom: 1em;
+  padding-right: 0.5em; /* Combines with li +0.5em to make +1em */
+}
+
+  footer #social-links li {
+    display: inline;
+    padding-right: 0.5em;
+  }
+
+  footer #social-links li:after {
+    content: "/";
+    font-weight: bold;
+    padding-left: 0.5em;
+  }
+
+  footer #social-links li:last-child:after {
+    display: none;
+  }
+
+/* Prevent overlapping text on smaller devices. */
+@media only screen and (max-width: 660px) {
+  footer #github-repo-link,
+  footer #social-links,
+  footer p#outro {
+    float: none;
+    display: block;
+    margin-top: 0em;
+    text-align: center;
+    padding-left: 0em;
+    padding-right: 0em;
+  }
+}
+
+/* Tabbed Sets
+***************************************************************************************************/
+
+/* The container for all tabs. */
+.tabbed-set {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  margin-top: 1em;
+}
+
+  /* Don't use flex when printing. */
+  @media print {
+    .tabbed-set {
+      display: block;
+    }
+  }
+
+  /* Container for content of a tab. */
+  .tabbed-set .tabbed-content {
+    display: none;
+    order: 99;
+    width: 100%;
+  }
+
+    /* Show all when printing. */
+    @media print {
+      .tabbed-set .tabbed-content {
+        display: block;
+      }
+    }
+
+    /* Remove margin on code blocks if in tabbed set. */
+    /* Also remove the top corners so things line up. */
+    .tabbed-set .tabbed-content pre {
+      margin: 0em;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 0px;
+    }
+
+  /* Tab labels. */
+  .tabbed-set label {
+    width: auto;
+    padding: 0.5em 0.7em;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    margin-right: 0.3em;
+  }
+
+  /* hide radio button used for display logic. */
+  .tabbed-set input {
+    position: absolute;
+    opacity: 0;
+  }
+
+    /* Selected tab */
+    .tabbed-set input:nth-child(n+1):checked + label {
+      color: var(--theme-secondary-color, #000);
+      border-bottom: 4px solid var(--theme-secondary-color, #000);
+    }
+
+      @media print {
+        .tabbed-set input:nth-child(n+1):checked + label {
+          color: inherit;
+          border-bottom: none;
+        }
+      }
+
+    /* display content for selected tab */
+    .tabbed-set input:nth-child(n+1):checked + label + .tabbed-content {
+      display: block;
+    }
+
+/* Error Pages
+***************************************************************************************************/
+
+article #error {
+  position: relative;
+  text-align: left;
+  background: url(/assets/images/pagey/pagey-2.svg) center right no-repeat;
+  background-size: contain;
+  height: 20em;
+  margin-top: 1em;
+}
+
+  article #error h1 {
+    text-indent: 0px;
+    font-size: 2.5em;
+    margin: inherit;
+    margin-bottom: .5em;
+    padding: inherit;
+    height: auto;
+    padding-top: 2em;
+  }
+
+  article #error p {
+    font-style: italic;
+    color: #555;
+    margin: 0em;
+    width: 70%;
+  }
+
+  /* Pagey overlaps text on smaller devices, so put Pagey on top instead. */
+  @media only screen and (max-width: 720px) {
+    article #error {
+      background: none;
+      text-align: center;
+    }
+
+    article #error:before {
+      content: "";
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin-bottom: -5em;
+      background: url(/assets/images/pagey/pagey-2.svg) center center no-repeat;
+      background-size: contain;
+    }
+
+    article #error p {
+      width: 100%;
+    }
+  }

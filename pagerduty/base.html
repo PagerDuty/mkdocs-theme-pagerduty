@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include "_metadata.html" %}
+    {% include "_stylesheets.html" %}
+    {%- block extrahead %}{% endblock %}
+  </head>
+  <body class="{% block pageclass %}{% endblock %}">
+    <header>
+      {% include "_header.html" %}
+    </header>
+
+    {% include "_breadcrumbs.html" %}
+    {% include "_hero.html" %}
+
+    <main>
+      {% include "_nav.html" %}
+
+      <article>
+        <h1>{{ page.title | default(config.site_name, true)}}</h1>
+        {% include "_downloads.html" %}
+        {% block content %}
+        {{ page.content }}
+        {% endblock %}
+      </article>
+    </main>
+
+    {% include "_pagination.html" %}
+
+    <footer>
+      {% include "_footer.html" %}
+    </footer>
+
+    {% include "_scripts.html" %}
+  </body>
+</html>
+{% if page and page.is_homepage %}
+<!-- Built at: {{ build_date_utc }} UTC -->
+{% endif %}

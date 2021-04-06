@@ -1,0 +1,69 @@
+{#
+    Page title can come from a few places, and changes in certain critera.
+    Since we use it in multiple places and don't want to repeat the logic, we do it here.
+-#}
+{% set title = page.title ~ ' - ' ~ config.site_name if page.title and not page.is_homepage else config.site_name -%}
+{% if page and page.meta and page.meta.title %}{% set title = page.meta.title ~ ' - ' ~ config.site_name %}{% endif -%}
+{#
+    Similarly for description. We use it in a few places and don't want to repeat the logic
+-#}
+{% set description = config.site_description -%}
+{% if page and page.meta and page.meta.description %}{% set description = page.meta.description %}{% endif -%}
+{#
+    And finally, we do the same for the cover image.
+-#}
+{% set cover = 'assets/images/covers/default.png' -%}
+{% if config.extra.cover %}{% set cover = config.extra.cover %}{% endif -%}
+{% if page and page.meta and page.meta.cover %}{% set cover = page.meta.cover %}{% endif -%}
+
+    <meta charset="utf-8" />
+    <title>{{ title }}</title>
+
+    <!-- Author and License -->
+    <meta name="dcterms.license"      content="http://www.apache.org/licenses/LICENSE-2.0" />
+    {% if config.site_author -%}
+        <meta name="author"               content="{{ config.site_author }}" />
+    {% endif -%}
+    {% if config.site_author -%}
+        <meta name="dcterms.rightsHolder" content="{{ config.site_author }}" />
+    {% endif -%}
+    {% if config.copyright -%}
+        <meta name="dcterms.rights"       content="{{ config.copyright }}" />
+    {% endif -%}
+
+    <!-- Page Description -->
+    <meta name="description" content="{{ description }}" />
+    <meta name="robots"      content="index, follow, archive" />
+    <meta name="generator"   content="mkdocs-{{ mkdocs_version }}, mkdocs-theme-pagerduty" />
+
+    <!-- Canonical Link -->
+    {% if page.canonical_url %}<link rel="canonical" href="{{ page.canonical_url }}">{% endif %}
+
+    <!-- Favicon -->
+    <link rel="shortcut icon"    href="{{ '/assets/images/favicon.png'|url }}" type="image/png" />
+    <link rel="icon"             href="{{ '/assets/images/favicon.png'|url }}" type="image/png" />
+    <link rel="apple-touch-icon" href="{{ '/assets/images/favicon.png'|url }}" />
+
+    <!-- Mobile -->
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <meta name="theme-color" content="#005a24" />
+
+    <!-- Apple -->
+    <meta name="apple-mobile-web-app-title"            content="{{ config.site_name }}" />
+    <meta name="apple-mobile-web-app-capable"          content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Open Graph -->
+    <meta property="og:url"         content="{{ page.canonical_url }}" />
+    <meta property="og:title"       content="{{ title }}" />
+    <meta property="og:site_name"   content="{{ config.site_name }}" />
+    <meta property="og:description" content="{{ description }}" />
+    <meta property="og:image"       content="{{ config.site_url }}{{ cover }}" />
+    <meta property="og:locale"      content="en_US" />
+    <meta property="og:type"        content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="{{ title }}" />
+    <meta name="twitter:description" content="{{ description }}" />
+    <meta name="twitter:image"       content="{{ config.site_url }}{{ cover }}" />

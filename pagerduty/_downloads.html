@@ -1,0 +1,24 @@
+<section id="downloads">
+  {% if page and page.meta and page.meta.pdf %}
+  <div id="download-link-pdf" class="download-link">
+    <a href="{{ page.meta.pdf }}"
+       target="_blank"
+       title="Download slides as PDF."
+       data-action="download"
+       aria-label="Download PDF">
+      <i class="material-icons">file_download</i>Slides
+    </a>
+  </div>
+  {% endif %}
+  {% if page and page.meta and page.meta.keynote %}
+  <div id="download-link-keynote" class="download-link">
+    <a href="{{ page.meta.keynote }}"
+       target="_blank"
+       title="Download slides as Keynote."
+       data-action="download"
+       aria-label="Download Keynote">
+      <i class="material-icons">file_download</i>Keynote
+    </a>
+  </div>
+  {% endif %}
+</section>

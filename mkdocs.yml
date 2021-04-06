@@ -1,0 +1,77 @@
+
+# This is applied to the title of each page, ""<Page Title> - <site_name>", etc."
+site_name: PagerDuty MkDocs Theme Test
+
+# Description and author used in metadata headers.
+site_description: Testing theme.
+site_author: PagerDuty, Inc.
+
+# Used as the base for any absolute path URLs we generate.
+site_url: https://example.pagerduty.com/
+
+# GitHub repository, linked in the footer.
+repo_url: https://github.com/pagerduty/mkdocs-theme-pagerduty
+
+# Copyright
+copyright: 'Copyright &copy; PagerDuty, Inc.'
+
+# Theme Settings
+theme:
+  # For development, use the direct theme code rather than having to install it first.
+  name: null
+  custom_dir: './pagerduty'
+
+  # If you want to test overrides, you'll need to install the theme first, then use this.
+  # name: pagerduty
+  # custom_dir: overrides
+
+  # Set the top-level title used for breadcrumbs and next to the logo.
+  title: 'Theme Test'
+  # title: 'Theme Test Really Long Name That Overlaps'
+
+  # mkdocs-theme.yml isn't used when using custom_dir, so this is a copy of what
+  # we have in there for testing purposes.
+  static_templates:
+    - 404.html
+
+# Contents
+nav:
+  - Home: 'index.md'
+  - Content:
+    - Short Content: 'content/short.md'
+    - Long Content: 'content/long.md'
+    - Metadata: 'content/metadata.md'
+    - Slides: 'content/slides.md'
+    - A Really Long Title To Test Navigation: 'content/long_title.md'
+  - Typographical Elements:
+    - Typography: 'elements/typography.md'
+    - Lists: 'elements/lists.md'
+    - Admonitions: 'elements/admonitions.md'
+    - Quotes: 'elements/quotes.md'
+    - Asides: 'elements/asides.md'
+    - Tables: 'elements/tables.md'
+  - Images/Visual Elements:
+    - Images: 'elements/images.md'
+    - Iframes: 'elements/iframes.md'
+    - Hero: 'elements/hero.md'
+    - Old Hero: 'elements/old_hero.md'
+    - Hero With Credit: 'elements/hero_with_credit.md'
+    - Old Hero With Credit: 'elements/old_hero_with_credit.md'
+
+# Extensions
+markdown_extensions:
+  - toc:
+      permalink: '#'
+  - sane_lists:
+  - admonition:
+  - meta:
+  - pymdownx.details:
+  - pymdownx.extra:
+  - pymdownx.mark:
+  - pymdownx.tilde:
+  - pymdownx.highlight:
+  - pymdownx.superfences:
+  - pymdownx.tabbed:
+
+# Development URL, bind to local only.
+dev_addr: '127.0.0.1:8000'
