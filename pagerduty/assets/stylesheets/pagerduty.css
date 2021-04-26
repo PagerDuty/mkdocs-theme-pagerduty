@@ -2186,6 +2186,7 @@ footer #ops-guides {
   footer #ops-guides li#og-devsecops a:before { content: "\e32a"; }
   footer #ops-guides li#og-autoremediation a:before { content: "\e8ba"; }
   footer #ops-guides li#og-goingoncall a:before { content: "\e0b0"; }
+  footer #ops-guides li#og-customerservice a:before { content: "\e310"; }
 
   footer #ops-guides li p {
     display: none;
