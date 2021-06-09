@@ -1,3 +1,8 @@
-# Allow everything
+# Allow everything by default.
 User-agent: *
 Disallow:
+
+# Disallow some assets for robots.
+User-agent:  *
+Disallow: /assets/*.pdf
+Disallow: /assets/*.key
