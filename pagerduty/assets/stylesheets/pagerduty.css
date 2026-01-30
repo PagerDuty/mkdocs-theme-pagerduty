@@ -1748,13 +1748,13 @@ article details.pdonpd {
   color: #005a2f;
 }
 article details.pdonpd:before {
+  font-family: 'pagerduty';
+  font-size: 1.8rem;
+  padding-top: 0.4rem;
+  content: "\0041";
   color: #005a2f;
-  /*
-  font-family: "pagerduty"; 
-  content: "p";
-  */
-  content: url(/assets/images/logo.svg);
 }
+
 article details.pdonpd summary {
   color: #005a2f;
 }
