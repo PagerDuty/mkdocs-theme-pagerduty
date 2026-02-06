@@ -1741,6 +1741,30 @@ article details.comment p a:visited {
   color: #4b4f4f;
 }
 
+/* PD-on-PD */
+
+article details.pdonpd {
+  border-left: 4px solid;
+  color: #005a2f;
+}
+article details.pdonpd:before {
+  font-family: 'pagerduty';
+  font-size: 1.8rem;
+  padding-top: 0.4rem;
+  content: "\0041";
+  color: #005a2f;
+}
+
+article details.pdonpd summary {
+  color: #005a2f;
+}
+article details.pdonpd summary::marker {
+  display:none;
+}
+article details.pdonpd p a:link,
+article details.pdonpd p a:visited {
+  color: #4b4f4f;
+}
 
 @media only screen and (max-width: 720px) {
   /* Get rid of the icon for blockquotes and asides. */
